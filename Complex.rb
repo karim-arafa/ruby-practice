@@ -2,8 +2,8 @@
 class ComplexNumber
 
     #class variable to calculator count
-    @@counter = 0
-    
+    @@counter= {"add_counter"=>0,"multiply_counter"=>0}
+    #@@counter=0
   
     #setter && getter for real and imaginary part
     attr_accessor :real, :img
@@ -16,7 +16,8 @@ class ComplexNumber
   
     #override the + function to allow add complex
     def + (complex_number)
-      @@counter += 1
+      @@counter["add_counter"] += 1
+      #@@counter += 1
       real = @real + complex_number.real
       img  = @img  + complex_number.img
       ComplexNumber.new(real, img)
@@ -24,7 +25,8 @@ class ComplexNumber
   
     #override the * function to allow multiply complex
     def *(other)
-      @@counter += 1
+      @@counter["multiply_counter"] += 1
+      #@@counter += 1
       real = @real * other.real - @img * other.img
       img  = @real * other.img + @img * other.real
       ComplexNumber.new(real, img)
@@ -55,7 +57,9 @@ class ComplexNumber
   
     #get_state to count how many time we call the calculator
     def self.calculator_operations_count()
-      puts "No of Add Operations: #{@@counter}"
+      puts "No of Add Operations: #{@@counter["add_counter"]}"
+      puts "NO of Multiply Operations #{@@counter["multiply_counter"]}"
+      #puts "No of #{@@counter}"
     end
   
   end
