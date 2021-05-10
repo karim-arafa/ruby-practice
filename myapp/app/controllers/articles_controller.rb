@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user!, except: %i[api_show api_index]
     def index
         @articles = Article.all
     end
@@ -8,6 +8,10 @@ class ArticlesController < ApplicationController
     end
     def new
         @article = Article.new
+    end
+    def api_index
+        @articles = Article.where(user_id: logged_in_user.id)
+        render json: @articles
     end
     def edit
         @article = Article.find(params[:id])
@@ -22,6 +26,10 @@ class ArticlesController < ApplicationController
             render 'new'
         end
     end
+    def api_show
+        @article = Article.find(params[:id])
+        render json: @article
+    end   
     def update
         @article = Article.find(params[:id])
        
